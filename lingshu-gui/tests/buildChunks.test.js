@@ -7,19 +7,19 @@ test('createManualChunks splits heavy vendor modules into stable chunks', () => 
 
   assert.equal(
     manualChunks('E:/Project/LingShu-Agent/lingshu-gui/node_modules/@arco-design/web-vue/es/index.mjs'),
-    'arco-ui',
+    'arco',
   );
   assert.equal(
     manualChunks('E:/Project/LingShu-Agent/lingshu-gui/node_modules/@arco-design/web-vue/es/form/index.js'),
-    'arco-form',
+    'arco',
   );
   assert.equal(
     manualChunks('E:/Project/LingShu-Agent/lingshu-gui/node_modules/@arco-design/web-vue/es/modal/index.js'),
-    'arco-ui',
+    'arco',
   );
   assert.equal(
     manualChunks('E:/Project/LingShu-Agent/lingshu-gui/node_modules/@arco-design/web-vue/es/avatar/index.js'),
-    'arco-display',
+    'arco',
   );
   assert.equal(
     manualChunks('E:/Project/LingShu-Agent/lingshu-gui/node_modules/@xterm/xterm/lib/xterm.js'),

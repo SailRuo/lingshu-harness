@@ -16,10 +16,12 @@ const chatWindow = fs.readFileSync(
   'utf8',
 );
 
-test('assistant timeline text uses a dedicated plain reply surface after process details', () => {
-  assert.match(messageList, /class="text-content markdown-content assistant-reply timeline-text"/);
-  assert.match(messageList, /\.assistant-reply\s*\{/);
-  assert.match(messageList, /\.embedded-process \+ \.assistant-reply\s*\{/);
+test('assistant timeline text renders through the streaming/final markdown surface', () => {
+  assert.match(messageList, /class="bubble-text-inner"/);
+  assert.match(
+    messageList,
+    /msg\.status === 'sending' \? renderStreamingText\(textContentFor\(item, msg\)\) : renderMarkdown\(msg\.id, textContentFor\(item, msg\)\)/,
+  );
   assert.doesNotMatch(messageList, /line-height:\s*2\s*!important/);
 });
 
@@ -32,7 +34,7 @@ test('assistant task bubbles do not mount the terminal panel beneath process det
 test('assistant timeline branches process fragments separately from text fragments', () => {
   assert.match(
     messageList,
-    /<template v-if="item\.kind === 'process'">[\s\S]*<ThoughtProcess[\s\S]*<\/template>\s*<div\s+v-else-if="item\.kind === 'text'"/,
+    /<template v-if="item\.kind === 'process' && !isCompanionDialogueMessage\(msg, timelineEventsFor\(msg\)\)">[\s\S]*?<ThoughtProcess[\s\S]*?<\/template>\s*<template v-else-if="item\.kind === 'text'">/,
   );
   assert.doesNotMatch(
     messageList,

@@ -41,9 +41,9 @@ test('settings container uses the shared app rail surface token', () => {
   assert.match(settingsView, /background-color:\s*var\(--bg-nav-rail,\s*var\(--bg-sidebar\)\)/);
 });
 
-test('settings sidebar uses the dedicated settings sidebar token', () => {
+test('settings sidebar uses the dedicated conversation-list surface token', () => {
   assert.match(
     settingsView,
-    /background-color:\s*var\(--bg-settings-sidebar,\s*var\(--bg-nav-rail,\s*var\(--bg-sidebar\)\)\)/,
+    /background-color:\s*var\(--bg-conversation-list,\s*var\(--bg-nav-rail,\s*var\(--bg-sidebar\)\)\)/,
   );
 });

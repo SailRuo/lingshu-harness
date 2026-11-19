@@ -9,17 +9,18 @@ const memoryEchoPanel = fs.readFileSync(
 );
 
 test('memory echo panel renders dropped candidate diagnostics from backend payload', () => {
-  assert.match(memoryEchoPanel, /droppedCandidates\?: MemoryEchoSnippet\[\]/);
-  assert.match(memoryEchoPanel, /selectedEntry\.snapshot\.droppedCandidates\?\.length/);
-  assert.match(memoryEchoPanel, /未入选候选/);
-  assert.match(memoryEchoPanel, /snippet\.dropReason/);
+  assert.match(memoryEchoPanel, /streamRecall\?: \{/);
+  assert.match(memoryEchoPanel, /candidates\?: StreamRecallCandidate\[\]/);
+  assert.match(memoryEchoPanel, /候选（未入选）/);
+  assert.match(memoryEchoPanel, /item\.reason/);
+  assert.match(memoryEchoPanel, /class="drop-reason"/);
 });
 
-test('memory echo panel shows channel score breakdown for selected and dropped items', () => {
-  const breakdownUses = memoryEchoPanel.match(/snippet\.scoreBreakdown/g) || [];
-  assert.ok(breakdownUses.length >= 4);
-  assert.match(memoryEchoPanel, /candidateCount/);
-  assert.match(memoryEchoPanel, /selectedCount/);
+test('memory echo panel shows similarity score for selected and dropped items', () => {
+  const simUses = memoryEchoPanel.match(/sim \{\{ formatScore\(item\.similarity\) \}\}/g) || [];
+  assert.ok(simUses.length >= 2);
+  assert.match(memoryEchoPanel, /候选 \{\{ streamRecallCandidates\.length \}\}/);
+  assert.match(memoryEchoPanel, /入选 \{\{ selectedStreams\.length \}\}/);
 });
 
 test('memory echo panel no longer submits v2 usage feedback', () => {

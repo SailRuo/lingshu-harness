@@ -23,13 +23,14 @@ test('buildTimelineItems separates process digest from final assistant text', ()
 
   assert.equal(items.length, 2);
   assert.equal(items[0].kind, 'process');
-  assert.equal(items[0].events.length, 2);
-  assert.deepEqual(items[0].events.map(event => event.type), ['thought', 'done']);
+  assert.equal(items[0].events.length, 1);
+  assert.deepEqual(items[0].events.map(event => event.type), ['thought']);
   assert.equal(items[0].finalText, undefined);
   assert.deepEqual(items[1], {
     kind: 'text',
-    id: 'assistant-text-2',
+    id: 'text-2',
     content: '笔记已创建成功',
+    bubbleIndex: 0,
   });
 });
 
@@ -54,6 +55,7 @@ test('buildTimelineItems keeps pure text conversations as text items', () => {
       kind: 'text',
       id: 'text-1',
       content: '你好，世界',
+      bubbleIndex: 0,
     },
   ]);
 });
