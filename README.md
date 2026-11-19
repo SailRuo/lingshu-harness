@@ -2,13 +2,16 @@
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](./LICENSE)
 
-> 目标：用 Node.js/TypeScript 重写 LingShu 的 Python 后端（`LingShu-Agent/backend`），最终打包不再携带 Python 服务；并尽可能减轻安装包体积。
+> 以长期记忆为基座的桌面端智能体——探索 AI 作为「长期的生活伙伴」，能给人的生活带来哪些真实的帮助。
 
-## 项目目的
+## 项目定位
 
-- **去 Python 化**：把 FastAPI 后端迁移到 Node.js，避免打包 Python 解释器与重型依赖。
-- **轻量化**：图谱/关系改为纯 SQLite；向量检索对齐 `lingshu-app-local`（`@huggingface/transformers` + `sqlite-vec`，几十 MB 级）；不接入 SER。
-- **渐进式迁移**：迁移期间保留 Python sidecar 作为回退，通过 `BACKEND_MODE`（python/node/hybrid）切换。
+灵枢（LingShu）是一个以**长期记忆**为基座的桌面端智能体项目，想认真回答一个问题：当智能体真的记得你、陪伴你足够长的时间，它能成为怎样的生活伙伴？
+
+- **长期记忆为基座**：对话、事件与人格状态持续沉淀——记忆分块、召回、人格块、记忆回声，让对话不必每次从零开始。
+- **长期尺度下的对话体验**：围绕个人知识库与长期上下文，打磨以月、年为单位的使用体验，而不是单次会话的质量。
+- **参与真实生活**：语音对话、主动关怀、约定提醒、MCP 工具与技能扩展，让智能体融入日常，而不只是问答。
+- **学习交流**：本项目以学习交流为目的开源（AGPL-3.0），欢迎研究与讨论。
 
 ## 目录结构
 
@@ -33,7 +36,7 @@ lingshu-harness/
 └── README.md
 ```
 
-## 当前状态（阶段 9）
+## 当前能力
 
 - 155 个 HTTP 端点 + 4 个 WebSocket 端点已全部落地，没有 501 占位；`npm run typecheck` 与 `npm run build` 通过。
 - 记忆、语音、MCP、技能动态绑定、桌面打包均已完成；任务类型编排按产品决策不做，仅保留接口兼容。
@@ -59,7 +62,7 @@ lingshu-harness/
 ```bash
 cd backend-node
 npm install
-npm run dev          # 默认端口 8600，迁移期建议 Node 用 8601
+npm run dev          # 默认端口 8600
 ```
 
 环境变量：`PORT`、`HOST`、`BACKEND_MODE`（python/node/hybrid）、`PYTHON_BACKEND_URL`、`LOG_LEVEL`。
@@ -70,8 +73,8 @@ npm run dev          # 默认端口 8600，迁移期建议 Node 用 8601
 
 ## 参考
 
-- 原 Python 后端：`/Users/haozhen/Project/LingShu-Agent/backend`
-- 轻量向量方案参考：`/Users/haozhen/Project/LingShu-Agent/lingshu-app-local`
+- 项目文档：`docs/`（公开文档）；`local-docs/`（本地开发文档，不入库）
+- 第三方组件与许可：见下方「开源协议」章节的「第三方组件与素材」
 
 ## 开源协议
 
@@ -87,6 +90,13 @@ npm run dev          # 默认端口 8600，迁移期建议 Node 用 8601
 ### 商标与项目名
 
 “灵枢 / LingShu” 项目名称、logo 与品牌视觉**不随代码授权**。衍生项目对外发布时必须更换名称与品牌素材，不得暗示与本项目官方存在关联。
+
+### 项目性质与合规定位
+
+- 本项目是**个人学习与研究性质的实验性项目**，处于持续探索阶段，不构成成熟产品或服务承诺。
+- 项目作者**不向公众提供生成式人工智能服务**，不以本项目运营任何面向公众的 AI 服务；作者未进行亦无需进行生成式人工智能服务备案、算法备案或相关安全评估。
+- 本项目的智能体采用**拟人化**交互设计（人格设定、情感表达、主动消息与长期记忆），其全部输出均为 AI 生成内容，请用户知悉并自行辨别；智能体输出不构成医疗、心理、法律等专业意见，不得作为替代。
+- 任何人基于本项目在中华人民共和国境内**面向公众提供服务**的，该服务提供者应自行履行届时适用的全部监管义务，包括但不限于生成式人工智能服务备案、AI 生成合成内容标识、未成年人保护与防沉迷措施、数据与个人信息合规。
 
 ### 合规与免责
 
