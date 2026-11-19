@@ -1,0 +1,135 @@
+/* ====== 暗黑模式 (森林绿) ====== */
+[data-theme="dark"],
+body[arco-theme='dark'] {
+  /* Canonical theme tokens: primary brand */
+  --color-primary: #3D8C41;
+  --color-primary-hover: #459A49;
+  --color-primary-active: #357A38;
+  --color-primary-light: #1F2E20;
+  --color-primary-light-1: #1F2E20;
+  --color-primary-light-3: #4E8F59;
+
+  /* Canonical theme tokens: application surfaces */
+  --bg-sidebar: #1E1E1E;
+  --bg-nav-rail: #2A2A2A;
+  --bg-titlebar-button-hover: #3A3A3A;
+  --bg-conversation-list: #252525;
+  --bg-settings-sidebar: #252525;
+  --bg-chat-window: #1C1C1C;
+  --bg-input-area: #252525;
+  --bg-chat-header: #252525;
+  --bg-message-self: #3D8C41;
+  --bg-message-other: #2A2A2A;
+  --bg-hover: #333333;
+  --bg-selected: #3D3D3D;
+  --bg-input: #2C2C2C;
+  --bg-secondary: #222222;
+  --bg-primary: #252525;
+
+  /* Canonical theme tokens: semantic text and accents */
+  --color-item-active: #3D3D3D;
+  --color-item-active-text: #E5E5E5;
+  --color-unread-bg: #3D8C41;
+  --text-primary: #E5E5E5;
+  --text-secondary: #A6A6A6;
+  --text-tertiary: #737373;
+  --text-placeholder: #555555;
+  --text-message-self: #E5E5E5;
+  --text-on-primary: #E5E5E5;
+  --border-color: #404040;
+  --border-color-dark: #4A4A4A;
+  --border-input: #444444;
+  --header-border-color: rgba(255, 255, 255, 0.05);
+  --color-success: #3D8C41;
+  --color-warning: #FFA940;
+  --color-error: #FA5151;
+  --color-online: #3D8C41;
+  --color-offline: #737373;
+  --success-color: #3D8C41;
+  --bg-code: #0D1117;
+  --text-code: #E5E5E5;
+
+  /* Compatibility aliases: keep until component usage is normalized */
+  --primary-color: var(--color-primary);
+  --primary-color-rgb: 61, 140, 65;
+  /* Arco 调色板：组件以 rgb(var(--primary-N)) / rgba(var(--primary-N), a) 方式消费，
+     必须提供 RGB 三元组而非完整颜色值 */
+  --primary-1: 31, 46, 32;
+  --primary-2: 42, 62, 44;
+  --primary-3: 54, 84, 58;
+  --primary-4: 66, 109, 72;
+  --primary-5: 69, 154, 73;
+  --primary-6: 61, 140, 65;
+  --primary-7: 53, 122, 56;
+  --primary-8: 42, 97, 45;
+  --primary-9: 31, 73, 34;
+  --primary-10: 21, 49, 23;
+  --arcoblue-1: 31, 46, 32;
+  --arcoblue-2: 42, 62, 44;
+  --arcoblue-3: 54, 84, 58;
+  --arcoblue-4: 66, 109, 72;
+  --arcoblue-5: 69, 154, 73;
+  --arcoblue-6: 61, 140, 65;
+  --arcoblue-7: 53, 122, 56;
+  --arcoblue-8: 42, 97, 45;
+  --arcoblue-9: 31, 73, 34;
+  --arcoblue-10: 21, 49, 23;
+  --primary-6-rgb: 61, 140, 65;
+
+  /* 滚动条 */
+  --scrollbar-thumb: rgba(255, 255, 255, 0.15);
+  --scrollbar-thumb-hover: rgba(255, 255, 255, 0.25);
+  --scrollbar-track: transparent;
+}
+
+/* ====== 强制覆盖 Arco 组件样式 (暗黑模式) ====== */
+
+/* Primary 按钮 */
+[data-theme="dark"] .arco-btn-primary:not(.arco-btn-disabled),
+body[arco-theme='dark'] .arco-btn-primary:not(.arco-btn-disabled) {
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+  color: #E5E5E5 !important;
+}
+
+/* Switch 开关 */
+[data-theme="dark"] .arco-switch-checked,
+body[arco-theme='dark'] .arco-switch-checked {
+  background-color: var(--color-primary) !important;
+}
+
+/* 其他交互组件背景 */
+[data-theme="dark"] .arco-checkbox-checked .arco-checkbox-icon,
+[data-theme="dark"] .arco-radio-checked .arco-radio-icon {
+  background-color: var(--color-primary) !important;
+}
+
+/* Select 下拉面板（记忆页等深色场景） */
+[data-theme="dark"] .arco-select-dropdown,
+body[arco-theme='dark'] .arco-select-dropdown {
+  background-color: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .arco-select-option,
+body[arco-theme='dark'] .arco-select-option {
+  color: var(--text-primary) !important;
+  background-color: transparent !important;
+}
+
+[data-theme="dark"] .arco-select-option:hover,
+[data-theme="dark"] .arco-select-option-active,
+[data-theme="dark"] .arco-select-option-selected,
+body[arco-theme='dark'] .arco-select-option:hover,
+body[arco-theme='dark'] .arco-select-option-active,
+body[arco-theme='dark'] .arco-select-option-selected {
+  color: var(--text-primary) !important;
+  background-color: var(--bg-hover) !important;
+}
+
+[data-theme="dark"] .arco-select-view-single,
+body[arco-theme='dark'] .arco-select-view-single {
+  background-color: var(--bg-input) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}

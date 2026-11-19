@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+dist-ssr/
+build/
+dev-dist/
+coverage/
+*.tsbuildinfo
+
+# Runtime data / databases
+backend-node/data/*.db
+backend-node/data/*.db-*
+backend-node/data/*.sqlite
+backend-node/data/*.sqlite-*
+backend-node/releases/
+.lingshu/
+**/.lingshu/
+
+# Environment & secrets
+.env
+.env.*
+!.env.example
+*.local
+*.pem
+*.key
+
+# Logs
+logs/
+.dev-logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Rust build artifacts
+src-tauri/target/
+src-tauri/deskband/target/
+
+# Agent tooling scratch
+.zcode/
+
+# Local documentation (private, not committed)
+local-docs/

@@ -1,0 +1,50 @@
+{
+  "name": "lingshu-gui",
+  "private": true,
+  "version": "1.0.0",
+  "license": "AGPL-3.0-only",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "sync:emoji": "node scripts/sync-twemoji-assets.mjs",
+    "sync:vad": "node scripts/sync-vad-model.mjs",
+    "sync:twemoji": "npm run sync:emoji",
+    "test": "node --test tests/**/*.test.js",
+    "preview": "vite preview",
+    "tauri": "tauri",
+    "stage:desktop": "node ../backend-node/scripts/stage-runtime.mjs",
+    "stage:desktop:build": "node ../backend-node/scripts/stage-runtime.mjs --build",
+    "desktop:build": "node scripts/desktop-build.mjs",
+    "desktop:build:mac": "tauri build --config src-tauri/tauri.macos.conf.json",
+    "desktop:build:win": "tauri build"
+  },
+  "dependencies": {
+    "@arco-design/web-vue": "^2.58.0",
+    "@pixiv/three-vrm": "^3.5.3",
+    "@tauri-apps/api": "2.11.1",
+    "@tauri-apps/plugin-dialog": "2.7.1",
+    "@tauri-apps/plugin-opener": "2.5.3",
+    "@vueuse/core": "^12.8.2",
+    "@xterm/addon-fit": "^0.11.0",
+    "@xterm/xterm": "^6.0.0",
+    "cropperjs": "^1.6.2",
+    "dompurify": "^3.4.1",
+    "echarts": "^6.0.0",
+    "marked": "^18.0.2",
+    "material-symbols": "^0.45.2",
+    "pinia": "^2.3.1",
+    "three": "^0.184.0",
+    "twemoji": "^14.0.2",
+    "vue": "^3.5.13",
+    "vue-router": "^4.6.4"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "2.11.1",
+    "@types/three": "^0.184.1",
+    "@vitejs/plugin-vue": "^6.0.6",
+    "typescript": "~5.6.2",
+    "vite": "^6.0.3",
+    "vue-tsc": "^2.1.10"
+  }
+}

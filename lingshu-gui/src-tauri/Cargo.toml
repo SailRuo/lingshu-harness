@@ -1,0 +1,64 @@
+[package]
+name = "lingshu-gui"
+version = "1.0.0"
+description = "A Tauri App"
+authors = ["you"]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+# The `_lib` suffix may seem redundant but it is necessary
+# to make the lib name unique and wouldn't conflict with the bin name.
+# This seems to be only an issue on Windows, see https://github.com/rust-lang/cargo/issues/8519
+name = "lingshi_gui_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2.11", features = ["tray-icon", "devtools", "macos-private-api"] }
+tauri-plugin-dialog = "2"
+tauri-plugin-opener = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sherpa-onnx = "1.13.2"
+base64 = "0.22"
+window-shadows = { git = "https://github.com/tauri-apps/window-shadows", version = "0.2.2" }
+screenshots = "0.7"
+image = "0.24"
+
+[target.'cfg(windows)'.dependencies]
+windows = { version = "0.58", features = [
+    "Win32_UI_WindowsAndMessaging",
+    "Win32_Foundation",
+    "Win32_UI_HiDpi",
+    "Win32_UI_Shell",
+    "Win32_System_SystemInformation",
+    "Win32_System_LibraryLoader",
+    "Win32_System_Pipes",
+    "Win32_System_Threading",
+    "Win32_System_IO",
+    "Win32_System_Registry",
+    "Win32_Security",
+    "Win32_Storage_FileSystem",
+] }
+
+# macOS 系统语音识别（Speech 框架）：objc2-speech 提供 SFSpeechRecognizer 绑定，
+# objc2-avf-audio 提供 SFSpeechAudioBufferRecognitionRequest 所需的 AVAudioPCMBuffer。
+[target.'cfg(target_os = "macos")'.dependencies]
+objc2 = "0.6"
+objc2-speech = "0.3.2"
+objc2-avf-audio = { version = "0.3.2", default-features = false, features = [
+    "AVAudioBuffer",
+    "AVAudioFormat",
+    "AVAudioTypes",
+] }
+objc2-foundation = { version = "0.3.2", default-features = false, features = [
+    "std",
+    "NSLocale",
+    "NSError",
+    "NSString",
+] }
+block2 = "0.6"

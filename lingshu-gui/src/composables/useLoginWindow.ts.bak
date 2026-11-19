@@ -1,0 +1,74 @@
+import { watch } from 'vue'
+import { useAuthStore } from '../stores/auth'
+
+/** 登录态窗口尺寸：宽度固定，高度随页面（登录/注册/找回）微调。 */
+const LOGIN_WIDTH = 460
+const LOGIN_HEIGHTS: Record<string, number> = {
+  login: 500,
+  signup: 640,
+  reset: 520,
+}
+const DEFAULT_LOGIN_HEIGHT = LOGIN_HEIGHTS.login
+const APP_SIZE = { width: 1366, height: 768 }
+
+function isTauriRuntime(): boolean {
+  return typeof window !== 'undefined' && '__TAURI_INTERNALS__' in window
+}
+
+async function setWindowSize(width: number, height: number, center = false): Promise<void> {
+  try {
+    const [{ getCurrentWindow }, { LogicalSize }] = await Promise.all([
+      import('@tauri-apps/api/window'),
+      import('@tauri-apps/api/dpi'),
+    ])
+    const win = getCurrentWindow()
+    await win.setSize(new LogicalSize(width, height))
+    if (center) await win.center()
+  } catch (error) {
+    console.warn('Failed to resize window', error)
+  }
+}
+
+/** 登录页内部切换登录/注册/找回时调整窗口高度（不重新居中，避免跳动）。 */
+export function resizeLoginWindowForPage(page: string): void {
+  if (!isTauriRuntime()) return
+  const height = LOGIN_HEIGHTS[page] ?? DEFAULT_LOGIN_HEIGHT
+  void setWindowSize(LOGIN_WIDTH, height)
+}
+
+/**
+ * 未登录时把桌面窗口缩成登录小窗，登录成功后再恢复到主界面尺寸。
+ * 只在状态切换时执行一次，避免和用户手动调整窗口大小打架。
+ */
+export function useLoginWindow(): void {
+  if (!isTauriRuntime()) return
+  const auth = useAuthStore()
+  let busy = false
+
+  const applySize = async (signedIn: boolean) => {
+    if (busy) return
+    busy = true
+    try {
+      if (signedIn) {
+        await setWindowSize(APP_SIZE.width, APP_SIZE.height, true)
+      } else {
+        await setWindowSize(LOGIN_WIDTH, DEFAULT_LOGIN_HEIGHT, true)
+      }
+    } finally {
+      busy = false
+    }
+  }
+
+  // 冷启动时如果还没登录，直接进入小窗；已登录则不改变用户当前窗口尺寸。
+  if (auth.checked && !auth.signedIn) {
+    void applySize(false)
+  }
+
+  watch(
+    () => auth.signedIn,
+    (signedIn) => {
+      if (!auth.checked) return
+      void applySize(signedIn)
+    },
+  )
+}
